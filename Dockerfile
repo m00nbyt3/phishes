@@ -1,10 +1,8 @@
-FROM alpine
+FROM debian:bullseye
 
 WORKDIR /home/web
-RUN apk add --no-cache \
+RUN apt update  && apt install -y \
 	wget \
 	php
 
-RUN adduser -D user42
-RUN chmod 777 /home/web
-RUN su user42
+COPY ngrok /usr/local/bin

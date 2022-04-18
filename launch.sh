@@ -6,12 +6,12 @@ if [ "$1" = "--build" ]; then
         docker rm mymachine
     fi
     docker build -t yeventimg .
-    docker run -it --name mymachine -p 80:8088 yeventimg
+    docker run -it -p 8088:8088 --mount type=bind,source="$PWD/web",target="/home/web" --name mymachine yeventimg
 elif [ "$MACHINE" ]; then
     docker start -a -i mymachine
 elif [ "$IMAGE" ]; then
-    docker run -it --name mymachine yeventimg
+    docker run -it -p 8088:8088 --mount type=bind,source="$PWD/web",target="/home/web" --name mymachine yeventimg
 else
     docker build -t yeventimg .
-    docker run -it --name mymachine yeventimg
+    docker run -it -p 8088:8088 --mount type=bind,source="$PWD/web",target="/home/web" --name mymachine yeventimg
 fi

@@ -1,8 +1,10 @@
 FROM alpine
 
-WORKDIR /home
+WORKDIR /home/web
 RUN apk add --no-cache \
 	wget \
 	php
 
-USER nobody
+RUN adduser -D user42
+RUN chmod 777 /home/web
+RUN su user42
